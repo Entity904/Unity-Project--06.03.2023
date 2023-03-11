@@ -8,16 +8,17 @@ public class Test1Script : MonoBehaviour
 
     public float upForce = 300;
 
-    public float speed = 1000;
+    public float speed = 3000;
 
-    public float runSpeed = 3000;
+    public float runSpeed = 6000;
 
     public bool isGrounded = false;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb.freezeRotation = true;
     }
 
     // Update is called once per frame
@@ -31,15 +32,23 @@ public class Test1Script : MonoBehaviour
         {
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed * Time.deltaTime, rb.velocity.y); //deltatime sluzy do usredniania predkosci niezaleznie od ilosci klatek                                                                                                   //przypisywanie wartosci ruchu w poziomie
         }
+
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
             rb.AddForce(Vector2.up * upForce);
             isGrounded = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            rb.AddForce(Vector2.down * upForce);
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         isGrounded = true;
     }
-}
+    }
+    
+
